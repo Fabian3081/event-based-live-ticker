@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "require": {
+        "daniel-ness/ansible-vault": "^0.0.3"
+    }
+}

@@ -1,0 +1,67 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "372324946d51f82041672c4d3ff97e38",
+    "packages": [
+        {
+            "name": "daniel-ness/ansible-vault",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daniel-ness/ansible-vault.git",
+                "reference": "88ffc08087a368490a35f1585a766b665616ac90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daniel-ness/ansible-vault/zipball/88ffc08087a368490a35f1585a766b665616ac90",
+                "reference": "88ffc08087a368490a35f1585a766b665616ac90",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpro/grumphp": "^0.16.2",
+                "phpstan/phpstan": "^0.11.19",
+                "phpunit/phpunit": "^8.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ],
+                "psr-4": {
+                    "DanielNess\\Ansible\\Vault\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Ness",
+                    "email": "daniel.r.ness@gmail.com"
+                }
+            ],
+            "description": "PHP port of ansible-vault encryption/decryption",
+            "support": {
+                "issues": "https://github.com/daniel-ness/ansible-vault/issues",
+                "source": "https://github.com/daniel-ness/ansible-vault/tree/0.0.3"
+            },
+            "time": "2019-11-18T23:22:00+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}

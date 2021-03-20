@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+    nginx:
+        container_name: tickerEvent_nginx
+        build:
+            context: .
+            dockerfile: docker/nginx/Dockerfile
+        volumes:
+            - ./public:/app/public/
+        ports:
+            - "80:80"
+        depends_on:
+            - php_fpm
+
+    php_fpm:
+        container_name: tickerEvent_fpm
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        volumes:
+            - ./:/app
+
+    database:
+        container_name: tickerEvent_database
+        build:
+            context: .
+            dockerfile: docker/database/Dockerfile
+        volumes:
+            - ./database:/var/lib/mysql:rw
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: 123456
