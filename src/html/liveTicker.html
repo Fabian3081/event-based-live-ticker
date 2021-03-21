@@ -1,78 +1,47 @@
+<!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>CodePen - UIkit 3 CSS Timeline</title>
+    <meta charset="utf-8">
+    <title>TickerEvents</title>
+    <!-- vueJS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/css/uikit.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body translate="no">
-<div class="uk-container uk-padding">
-    <div class="uk-timeline">
+<body>
+<div  id="controller" class="uk-container uk-padding" v-cloak>
+    <div class="uk-timeline" v-for="(tickerEvent, index) in tickerEvents" v-if="index < displayedEvents">
         <div class="uk-timeline-item">
             <div class="uk-timeline-icon">
-                <span class="uk-badge"><span uk-icon="user" class="uk-icon"></span></span>
+                <span class="uk-badge"><span :uk-icon="tickerEvent.tickerEventData.icon" class="uk-icon"></span></span>
             </div>
             <div class="uk-timeline-content">
                 <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
                     <div class="uk-card-header">
                         <div class="uk-grid-small uk-flex-middle uk-grid" uk-grid="">
-                            <h3 class="uk-card-title uk-first-column"><time datetime="2020-07-08">July 8</time></h3>
-                            <span class="uk-label uk-label-success uk-margin-auto-left">19.03.2021 - 10:15 Uhr</span>
+                            <h3 class="uk-card-title uk-first-column">{{ tickerEvent.tickerEventData.heading }}</h3>
+                            <span class="uk-label uk-margin-auto-left" :class="getLabelClassFromColor(tickerEvent.tickerEventData.badge.color)">{{ tickerEvent.tickerEventData.badge.text }}</span>
                         </div>
                     </div>
                     <div class="uk-card-body">
-                        <p class="uk-text-success">Fully responsive timeline you can add to your UIkit 3 project
-                        </p>
+                        {{ tickerEvent.tickerEventData.content }}
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="uk-timeline-item">
-            <div class="uk-timeline-icon">
-                <span class="uk-badge"><span uk-icon="check" class="uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check"><polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline></svg></span></span>
-            </div>
-            <div class="uk-timeline-content">
-                <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
-                    <div class="uk-card-header">
-                        <div class="uk-grid-small uk-flex-middle uk-grid" uk-grid="">
-                            <h3 class="uk-card-title uk-first-column"><time datetime="2020-07-07">July 7</time></h3>
-                            <span class="uk-label uk-label-warning uk-margin-auto-left">Test</span>
-                        </div>
-                    </div>
-                    <div class="uk-card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                        </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                        </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="uk-timeline-item">
-            <div class="uk-timeline-icon">
-                <span class="uk-badge"><span uk-icon="check" class="uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check"><polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline></svg></span></span>
-            </div>
-            <div class="uk-timeline-content">
-                <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
-                    <div class="uk-card-header">
-                        <div class="uk-grid-small uk-flex-middle uk-grid" uk-grid="">
-                            <h3 class="uk-card-title uk-first-column"><time datetime="2020-07-06">July 6</time></h3>
-                            <span class="uk-label uk-label-danger uk-margin-auto-left">Fix</span>
-                        </div>
-                    </div>
-                    <div class="uk-card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                        </p>
-                    </div>
-                </div>
-                <a href="#"><span class="uk-margin-small-right uk-icon" uk-icon="triangle-down"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="triangle-down"><polygon points="5 7 15 7 10 12"></polygon></svg></span>Load more</a>
+                <a @click="showMore(displayedEvents)" v-if="index === displayedEvents - 1 && tickerEvents.length > displayedEvents">
+                    <span class="uk-margin-small-right uk-icon" uk-icon="triangle-down"></span>
+                    Mehr anzeigen
+                </a>
             </div>
         </div>
     </div>
 </div>
+</body>
+<script src="js/TickerEvent.js"></script>
+<script src="js/DefaultTickerEventData.js"></script>
+<script src="js/EventMapper.js"></script>
+<script src="js/controller.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit-icons.min.js"></script>
-</body>
 </html>
