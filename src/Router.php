@@ -4,43 +4,21 @@ declare(strict_types=1);
 
 namespace tickerEvents;
 
+use Slim\App;
+
 class Router
 {
     /**
-     * @var Factory
+     * @param App $app
+     * @return App
      */
-    private Factory $factory;
-    /**
-     * @var PHPVariablesWrapper
-     */
-    private PHPVariablesWrapper $variablesWrapper;
-
-    /**
-     * Router constructor.
-     * @param Factory $factory
-     * @param PHPVariablesWrapper $variablesWrapper
-     */
-    public function __construct(
-        Factory $factory,
-        PHPVariablesWrapper $variablesWrapper
-    ) {
-        $this->factory = $factory;
-        $this->variablesWrapper = $variablesWrapper;
-    }
-
-    /**
-     * @param string $url
-     * @return Action
-     */
-    public function getPageForUrl(string $url): Action
+    public static function setRoutes(App $app): App
     {
-        switch ($url) {
-            case '/':
-                return $this->factory->createLiveTickerAction();
-            case '/getDefaultTickerEvents':
-                return $this->factory->createGetDefaultTickerEventsAction();
-        }
+        $app->get('/', Factory::createLiveTickerAction());
+        $app->get('/getTickerEvents/DefaultTickerEvent/{lastEventID}',
+            Factory::createGetDefaultTickerEventsAction()
+        );
 
-        return $this->factory->createBlankAction();
+        return $app;
     }
 }

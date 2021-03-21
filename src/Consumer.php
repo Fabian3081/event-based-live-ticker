@@ -23,20 +23,21 @@ class Consumer
     {
         $eventstoreEntries = $this->eventLoader->loadEventstoreEntries($tickerEvent, $lastEventID);
         $events = [];
+        $failedEvents = [];
 
         foreach ($eventstoreEntries as $eventstoreEntry) {
             try {
                 if ($eventstoreEntry->getTickerEventType() === $tickerEvent->getTickerEventType()) {
-                    $tickerEvent->setTickerEventID($eventstoreEntry->getTickerEventID());
                     $tickerEvent->setTickerEventData(
                         $tickerEvent->getTickerEventData()::fromJSON(
                             $eventstoreEntry->getTickerEventData()
                         )
                     );
-                    $events[] = $tickerEvent;
+                    $tickerEvent->setTickerEventID($eventstoreEntry->getTickerEventID());
+                    $events[] = clone($tickerEvent);
                 }
             } catch (InvalidEventDataException $e) {
-
+                $failedEvents[] = $eventstoreEntry->getTickerEventID();
             }
         }
 

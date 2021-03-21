@@ -3,6 +3,8 @@
         "classmap": ["src/"]
     },
     "require": {
+        "slim/slim": "4.7.*",
+        "slim/psr7": "1.3.*",
         "daniel-ness/ansible-vault": "^0.0.3"
     }
 }

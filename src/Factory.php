@@ -5,33 +5,31 @@ declare(strict_types=1);
 namespace tickerEvents;
 
 use PDO;
+use Slim\App;
+use Slim\Factory\AppFactory;
 
 class Factory
 {
-    public function createApp(): Application
+    public function createApp(): App
     {
-        return new Application(
-            new Router(
-                new Factory,
-                new PHPVariablesWrapper()
-            ),
-            new PHPVariablesWrapper()
-        );
+        $app = AppFactory::create();
+
+        return Router::setRoutes($app);
     }
 
-    public function createLiveTickerAction(): LiveTickerAction
+    public static function createLiveTickerAction(): LiveTickerAction
     {
         return new LiveTickerAction(
             new FileLoader()
         );
     }
 
-    public function createBlankAction(): BlankAction
+    public static function createBlankAction(): BlankAction
     {
         return new BlankAction();
     }
 
-    public function createEventConsumer(): Consumer
+    public static function createEventConsumer(): Consumer
     {
         return new Consumer(
             new EventLoader(
@@ -40,7 +38,7 @@ class Factory
         );
     }
 
-    public function createEventEmitter(): Emitter
+    public static function createEventEmitter(): Emitter
     {
         return new Emitter();
     }
@@ -51,10 +49,10 @@ class Factory
         return $mySqlConnector->getConnection();
     }
 
-    public function createGetDefaultTickerEventsAction(): Action
+    public static function createGetDefaultTickerEventsAction(): GetDefaultTickerEventsAction
     {
         return new GetDefaultTickerEventsAction(
-            $this->createEventConsumer()
+            self::createEventConsumer()
         );
     }
 }

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace tickerEvents;
 
-class LiveTickerAction implements Action
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
+
+class LiveTickerAction
 {
     /**
      * @var FileLoader
@@ -17,8 +20,12 @@ class LiveTickerAction implements Action
         $this->fileLoader = $fileLoader;
     }
 
-    public function run(): string
+    public function __invoke(Request $request, Response $response, $args): Response
     {
-        return $this->fileLoader->loadHTML("liveTicker");
+        $response->getBody()->write($this->fileLoader->loadHTML("liveTicker"));
+
+        return $response
+            ->withHeader('Content-type', ['text/html', 'charset=UTF-8'])
+            ->withStatus(200);
     }
 }

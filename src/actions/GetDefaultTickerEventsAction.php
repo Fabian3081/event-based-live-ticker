@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace tickerEvents;
 
-class GetDefaultTickerEventsAction implements Action
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
+
+class GetDefaultTickerEventsAction
 {
     /**
      * @var Consumer
@@ -17,13 +20,13 @@ class GetDefaultTickerEventsAction implements Action
         $this->consumer = $consumer;
     }
 
-    public function run(): string
+    public function __invoke(Request $request, Response $response, $args): Response
     {
         $events = $this->consumer->loadAfter(
             new DefaultTickerEvent(
                 new DefaultTickerEventData()
             ),
-            0
+            (int) $args["lastEventID"]
         );
 
         $jsonEvents = [];
@@ -32,7 +35,10 @@ class GetDefaultTickerEventsAction implements Action
             $jsonEvents[] = $event->getMappedEvent();
         }
 
-        header('Content-Type: application/json');
-        return json_encode($jsonEvents);
+        $response->getBody()->write(json_encode($jsonEvents));
+
+        return $response
+            ->withHeader('Content-type', ['application/json', 'charset=UTF-8'])
+            ->withStatus(200);
     }
 }
