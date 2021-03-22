@@ -25,7 +25,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="uk-navbar-right">
+                <div class="uk-navbar-right" v-if="loggedIn">
                     <ul class="uk-navbar-nav">
                         <li><a @click="logout()">Logout</a></li>
                     </ul>
