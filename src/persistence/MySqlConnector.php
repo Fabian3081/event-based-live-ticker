@@ -19,7 +19,7 @@ class MySqlConnector
             "user" => Config::getValue("tickerEventstoreDbUser"),
             "password" => Config::getValue("tickerEventstoreDbPassword"),
             "host" => Config::getValue("tickerEventstoreDbHost"),
-            "dbName" => "tickerEventstore"
+            "dbName" => Config::getValue("tickerEventstoreDbName")
         ];
         $database = 'mysql:host=' . $config['host'] . ';dbname=' . $config['dbName'];
         $connection = new PDO($database, $config['user'], $config['password']);

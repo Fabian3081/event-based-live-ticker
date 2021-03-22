@@ -10,12 +10,12 @@ use Slim\Psr7\Response;
 class GetDefaultTickerEventsAction
 {
     /**
-     * @var Consumer
+     * @var EventConsumer
      */
-    private Consumer $consumer;
+    private EventConsumer $consumer;
 
     public function __construct(
-        Consumer $consumer
+        EventConsumer $consumer
     ) {
         $this->consumer = $consumer;
     }

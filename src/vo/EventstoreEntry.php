@@ -6,14 +6,14 @@ namespace tickerEvents;
 
 class EventstoreEntry
 {
-    private int $tickerEventID;
+    private ?int $tickerEventID;
     private string $tickerEventType;
     private string $tickerEventData;
 
     public function __construct(
-        int $tickerEventID,
         string $tickerEventType,
-        string $tickerEventData
+        string $tickerEventData,
+        int $tickerEventID = null
     ) {
 
         $this->tickerEventID = $tickerEventID;
@@ -40,7 +40,7 @@ class EventstoreEntry
     /**
      * @return int
      */
-    public function getTickerEventID(): int
+    public function getTickerEventID(): ?int
     {
         return $this->tickerEventID;
     }

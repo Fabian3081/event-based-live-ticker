@@ -37,9 +37,9 @@ class EventLoader
 
         foreach ($events as $event) {
             $loadedEvents[] = new EventstoreEntry(
-                (int) $event["tickerEventID"],
                 (string) $event["tickerEventType"],
-                (string) $event["tickerEventData"]
+                (string) $event["tickerEventData"],
+                (int) $event["tickerEventID"]
             );
         }
 
@@ -52,7 +52,7 @@ class EventLoader
     private function getLoadEventsStatement(): PDOStatement
     {
         return $this->pdo->prepare(
-            "SELECT tickerEventID, tickerEventType, tickerEventData FROM tickerEventstore.tickerEvents WHERE tickerEventID > :eventID AND tickerEventType = :eventType"
+            "SELECT tickerEventID, tickerEventType, tickerEventData FROM tickerEvents WHERE tickerEventID > :eventID AND tickerEventType = :eventType"
         );
     }
 }

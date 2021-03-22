@@ -10,7 +10,8 @@ class DefaultTickerEventData implements TickerEventData
 {
     private ?string $heading;
     private ?string $content;
-    private ?array $badge;
+    private ?string $badgeText;
+    private ?string $badgeColor;
     private ?string $icon;
 
     public function __construct(
@@ -22,17 +23,19 @@ class DefaultTickerEventData implements TickerEventData
     ) {
         $this->heading = $heading;
         $this->content = $content;
-        $this->badge = $this->getMappedBadge($badgeText, $badgeColor);
+        $this->badgeText = $badgeText;
+        $this->badgeColor = $badgeColor;
         $this->icon = $icon;
     }
 
     public function getMappedEventData(): array
     {
         return [
-          "heading" => $this->heading,
-          "content" => $this->content,
-          "badge" => $this->badge,
-          "icon" => $this->icon
+            "heading" => $this->heading,
+            "content" => $this->content,
+            "badgeText" => $this->badgeText,
+            "badgeColor" => $this->badgeColor,
+            "icon" => $this->icon
         ];
     }
 
@@ -56,17 +59,6 @@ class DefaultTickerEventData implements TickerEventData
             $eventData["badgeColor"],
             $eventData["icon"]
         );
-    }
-
-    private function getMappedBadge($badgeText, $badgeColor): ?array
-    {
-        if ($badgeText == null || $badgeColor == null) {
-            return null;
-        }
-        return [
-            "text" => $badgeText,
-            "color" => $badgeColor
-        ];
     }
 
     /**
@@ -112,10 +104,18 @@ class DefaultTickerEventData implements TickerEventData
     }
 
     /**
-     * @return array|null
+     * @return string|null
      */
-    public function getBadge(): ?array
+    public function getBadgeText(): ?string
     {
-        return $this->badge;
+        return $this->badgeText;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBadgeColor(): ?string
+    {
+        return $this->badgeColor;
     }
 }

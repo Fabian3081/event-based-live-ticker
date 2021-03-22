@@ -24,23 +24,43 @@ class Factory
         );
     }
 
+    public static function createNewTickerEventAction(): NewTickerEventAction
+    {
+        return new NewTickerEventAction(
+            new FileLoader()
+        );
+    }
+
+    public static function createPostIsAuthenticatedAction(): PostIsAuthenticatedAction
+    {
+        return new PostIsAuthenticatedAction(
+            new UserLoader(
+                self::createPdoConnection()
+            )
+        );
+    }
+
     public static function createBlankAction(): BlankAction
     {
         return new BlankAction();
     }
 
-    public static function createEventConsumer(): Consumer
+    public static function createEventConsumer(): EventConsumer
     {
-        return new Consumer(
+        return new EventConsumer(
             new EventLoader(
                 self::createPdoConnection()
             )
         );
     }
 
-    public static function createEventEmitter(): Emitter
+    public static function createEventEmitter(): EventEmitter
     {
-        return new Emitter();
+        return new EventEmitter(
+            new EventWriter(
+                self::createPdoConnection()
+            )
+        );
     }
 
     private static function createPdoConnection(): PDO
@@ -53,6 +73,13 @@ class Factory
     {
         return new GetDefaultTickerEventsAction(
             self::createEventConsumer()
+        );
+    }
+
+    public static function createPostDefaultTickerEventsAction(): PostDefaultTickerEventsAction
+    {
+        return new PostDefaultTickerEventsAction(
+            self::createEventEmitter()
         );
     }
 }

@@ -15,8 +15,17 @@ class Router
     public static function setRoutes(App $app): App
     {
         $app->get('/', Factory::createLiveTickerAction());
+        $app->get('/createTicker', Factory::createNewTickerEventAction());
+
         $app->get('/getTickerEvents/DefaultTickerEvent/{lastEventID}',
             Factory::createGetDefaultTickerEventsAction()
+        );
+
+        $app->post('/createTicker',
+            Factory::createPostDefaultTickerEventsAction()
+        );
+        $app->post('/isAuthenticated',
+            Factory::createPostIsAuthenticatedAction()
         );
 
         return $app;

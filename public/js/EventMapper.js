@@ -6,8 +6,8 @@ class EventMapper {
             newEventData = new DefaultTickerEventData(
                 event.tickerEventData.heading,
                 event.tickerEventData.content,
-                event.tickerEventData.badge.text,
-                event.tickerEventData.badge.color,
+                event.tickerEventData.badgeText,
+                event.tickerEventData.badgeColor,
                 event.tickerEventData.icon
             );
         }

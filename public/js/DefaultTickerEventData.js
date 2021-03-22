@@ -2,10 +2,8 @@ class DefaultTickerEventData {
     constructor(heading, content, badgeText, badgeColor, icon) {
         this.heading = heading;
         this.content = content;
-        this.badge = {
-            "text": badgeText,
-            "color": badgeColor
-        };
+        this.badgeText = badgeText;
+        this.badgeColor = badgeColor;
         this.icon = icon;
     }
 }

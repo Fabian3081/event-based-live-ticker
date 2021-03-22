@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace tickerEvents;
 
-class Consumer
+class EventConsumer
 {
     private EventLoader $eventLoader;
 

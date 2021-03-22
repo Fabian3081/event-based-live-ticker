@@ -11,37 +11,58 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div  id="controller" class="uk-container uk-padding" v-cloak>
-    <div class="uk-timeline" v-for="(tickerEvent, index) in tickerEvents" v-if="index < displayedEvents">
-        <div class="uk-timeline-item">
-            <div class="uk-timeline-icon">
-                <span class="uk-badge"><span :uk-icon="tickerEvent.tickerEventData.icon" class="uk-icon"></span></span>
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+        <nav class="uk-navbar-container uk-container">
+            <div class="uk-navbar-left">
+                <a href="/" class="uk-navbar-item uk-logo">LiveTicker</a>
+                <div class="uk-navbar-left">
+                    <ul class="uk-navbar-nav">
+                        <li>
+                            <a href="https://github.com/Fabian3081/event-based-live-ticker" target="_blank">
+                                View on GitHub
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav">
+                        <li><a href="/createTicker">Create Ticker</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="uk-timeline-content">
-                <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
-                    <div class="uk-card-header">
-                        <div class="uk-grid-small uk-flex-middle uk-grid" uk-grid="">
-                            <h3 class="uk-card-title uk-first-column">{{ tickerEvent.tickerEventData.heading }}</h3>
-                            <span class="uk-label uk-margin-auto-left" :class="getLabelClassFromColor(tickerEvent.tickerEventData.badge.color)">{{ tickerEvent.tickerEventData.badge.text }}</span>
+        </nav>
+    </div>
+    <div id="controller" class="uk-container uk-padding" v-cloak>
+        <div class="uk-timeline tickerEvent" v-for="(tickerEvent, index) in tickerEvents" v-if="index < displayedEvents">
+            <div class="uk-timeline-item">
+                <div class="uk-timeline-icon">
+                    <span class="uk-badge"><span :uk-icon="tickerEvent.tickerEventData.icon" class="uk-icon"></span></span>
+                </div>
+                <div class="uk-timeline-content">
+                    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
+                        <div class="uk-card-header">
+                            <div class="uk-grid-small uk-flex-middle uk-grid" uk-grid="">
+                                <h3 class="uk-card-title uk-first-column">{{ tickerEvent.tickerEventData.heading }}</h3>
+                                <span class="uk-label uk-margin-auto-left" :class="getLabelClassFromColor(tickerEvent.tickerEventData.badgeColor)">{{ tickerEvent.tickerEventData.badgeText }}</span>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            {{ tickerEvent.tickerEventData.content }}
                         </div>
                     </div>
-                    <div class="uk-card-body">
-                        {{ tickerEvent.tickerEventData.content }}
-                    </div>
+                    <a @click="showMore(displayedEvents)" v-if="index === displayedEvents - 1 && tickerEvents.length > displayedEvents">
+                        <span class="uk-margin-small-right uk-icon" uk-icon="triangle-down"></span>
+                        Mehr anzeigen
+                    </a>
                 </div>
-                <a @click="showMore(displayedEvents)" v-if="index === displayedEvents - 1 && tickerEvents.length > displayedEvents">
-                    <span class="uk-margin-small-right uk-icon" uk-icon="triangle-down"></span>
-                    Mehr anzeigen
-                </a>
             </div>
         </div>
     </div>
-</div>
 </body>
 <script src="js/TickerEvent.js"></script>
 <script src="js/DefaultTickerEventData.js"></script>
 <script src="js/EventMapper.js"></script>
-<script src="js/controller.js"></script>
+<script src="js/controller/liveTickerController.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit-icons.min.js"></script>
 </html>

@@ -30,6 +30,15 @@
     padding: 0 0 0 1rem;
 }
 
+.tickerEvent {
+    animation: fade-in 0.3s ease-in;
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 [v-cloak] {
     display:none;
 }
